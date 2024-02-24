@@ -18,7 +18,8 @@ app_server <- function(input, output, session) {
   # check_credentials returns a function to authenticate users
   res_auth <- secure_server(
     check_credentials = check_credentials(
-      db=app_sys("app/www/manager.sqlite"),
+      # db=app_sys("app/www/manager.sqlite"),
+      db=app_sys(source_global$manager_sqlite),
       passphrase = "12345678"#key_get("R-shinymanager-key", "obiwankenobi")
       # passphrase = "passphrase_wihtout_keyring"
     )

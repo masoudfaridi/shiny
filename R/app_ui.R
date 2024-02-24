@@ -96,9 +96,14 @@ app_ui <- function(request) {
         #htmltools::
         tags$li(class = "dropdown",
                 #       htmltools::
-                tags$a(href="https://www.cybersec.ir/", target="_blank",
+                tags$a(href=source_global$cybersec_ir#"https://www.cybersec.ir/"
+                       , target="_blank",
+                       style="
+                               padding-bottom: 0px;
+                               padding-top: 0px;
+                          ",  #reza: change style
                        #htmltools::
-                       tags$img(height = "30px", alt="cybersec", src=
+                       tags$img(height = "45px", alt="cybersec", src=
                                   #app_sys(
                                   "www/icon_1_fanavaran_2.png"
                                 #)
@@ -109,9 +114,12 @@ app_ui <- function(request) {
         #htmltools::
         tags$li(class = "dropdown",
                 #htmltools::
-                tags$a(href="https://rahvar120.ir/", target="_blank",
+                tags$a(href="https://rahvar120.ir/", target="_blank", style="
+                               padding-bottom: 0px;
+                               padding-top: 0px;
+                          ", #reza: change style
                        #                  htmltools::
-                       tags$img(height = "30px", alt="cybersec", src=  #app_sys(
+                       tags$img(height = "45px", alt="cybersec", src=  #app_sys(
                                   "www/icon_2_police.png")
                        #)
                 )

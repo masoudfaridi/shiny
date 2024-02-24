@@ -15,10 +15,31 @@ library(RPostgres)
 library(DBI)
 library(shinycssloaders)
 library(plotly)
+library(shinymanager)
 
+# cat(stringi::stri_escape_unicode("شما مجاز به استفاده از این سامانه نیستید"))
 
-
-
+set_labels(language = "en",
+           "Please authenticate" = "\u0648\u0631\u0648\u062f \u06a9\u0627\u0631\u0628\u0631",
+           "Username:" = "\u0646\u0627\u0645 \u06a9\u0627\u0631\u0628\u0631\u06cc:",
+           "Password:" = "\u06a9\u0644\u0645\u0647 \u0639\u0628\u0648\u0631:",
+           "Login" = "\u0648\u0631\u0648\u062f",
+           "Logout" = "\u062e\u0631\u0648\u062c",
+           "Username or password are incorrect" = "\u0646\u0627\u0645 \u06a9\u0627\u0631\u0628\u0631\u06cc \u06cc\u0627 \u06a9\u0644\u0645\u0647 \u0639\u0628\u0648\u0631 \u0627\u0634\u062a\u0628\u0627\u0647 \u0627\u0633\u062a",
+           "Please change your password" = "\u0644\u0637\u0641\u0627 \u06a9\u0644\u0645\u0647 \u0639\u0628\u0648\u0631 \u062e\u0648\u062f \u0631\u0627 \u062a\u063a\u06cc\u06cc\u0631 \u062f\u0647\u06cc\u062f",
+           "New password:" = "\u06a9\u0644\u0645\u0647 \u0639\u0628\u0648\u0631 \u062c\u062f\u06cc\u062f",
+           "Confirm password:" = "\u062a\u0627\u06cc\u06cc\u062f \u06a9\u0644\u0645\u0647 \u0639\u0628\u0648\u0631",
+           "Password must contain at least one number, one lowercase, one uppercase and must be at least length 6." = "\u06a9\u0644\u0645\u0647 \u0639\u0628\u0648\u0631 \u0628\u0627\u06cc\u062f \u062d\u062f\u0627\u0642\u0644 \u0634\u0627\u0645\u0644 \u06cc\u06a9 \u0639\u062f\u062f\u060c \u06cc\u06a9 \u062d\u0631\u0641 \u06a9\u0648\u0686\u06a9\u060c \u06cc\u06a9 \u062d\u0631\u0641 \u0628\u0632\u0631\u06af \u0648 \u062d\u062f\u0627\u0642\u0644 \u0628\u0647 \u0637\u0648\u0644 \u06f6 \u0628\u0627\u0634\u062f.",
+           "Update new password" = "\u0628\u0631\u0648\u0632\u0631\u0633\u0627\u0646\u06cc \u06a9\u0644\u0645\u0647 \u0639\u0628\u0648\u0631 \u062c\u062f\u06cc\u062f",
+           "Your account has expired" = "\u062d\u0633\u0627\u0628 \u06a9\u0627\u0631\u0628\u0631\u06cc \u0634\u0645\u0627 \u0645\u0646\u0642\u0636\u06cc \u0634\u062f\u0647 \u0627\u0633\u062a",
+           "Your account is locked" = "\u062d\u0633\u0627\u0628 \u06a9\u0627\u0631\u0628\u0631\u06cc \u0634\u0645\u0627 \u0642\u0641\u0644 \u0634\u062f\u0647 \u0627\u0633\u062a",
+           "New password cannot be the same as old" = "\u06a9\u0644\u0645\u0647 \u0639\u0628\u0648\u0631 \u062c\u062f\u06cc\u062f \u0646\u0645\u06cc \u062a\u0648\u0627\u0646\u062f \u0645\u0627\u0646\u0646\u062f \u06a9\u0644\u0645\u0647 \u0639\u0628\u0648\u0631 \u0642\u062f\u06cc\u0645\u06cc \u0628\u0627\u0634\u062f",
+           "Password successfully updated! Please re-login" = "\u06a9\u0644\u0645\u0647 \u0639\u0628\u0648\u0631 \u0628\u0627 \u0645\u0648\u0641\u0642\u06cc\u062a \u0628\u0647 \u0631\u0648\u0632 \u0634\u062f! \u0644\u0637\u0641\u0627 \u062f\u0648\u0628\u0627\u0631\u0647 \u0648\u0627\u0631\u062f \u0633\u0627\u0645\u0627\u0646\u0647 \u0634\u0648\u06cc\u062f",
+           "The two passwords are different" = "\u062f\u0648 \u06a9\u0644\u0645\u0647 \u0639\u0628\u0648\u0631 \u0645\u062a\u0641\u0627\u0648\u062a \u0647\u0633\u062a\u0646\u062f.",
+           "Failed to update password" = "\u06a9\u0644\u0645\u0647 \u0639\u0628\u0648\u0631 \u0628\u0647 \u0631\u0648\u0632 \u0646\u0634\u062f",
+           "Password does not respect safety requirements" = "\u06a9\u0644\u0645\u0647 \u0639\u0628\u0648\u0631 \u0627\u0644\u0632\u0627\u0645\u0627\u062a \u0627\u0645\u0646\u06cc\u062a\u06cc \u0631\u0627 \u0631\u0639\u0627\u06cc\u062a \u0646\u0645\u06cc \u06a9\u0646\u062f",
+           "You are not authorized for this application" = "\u0634\u0645\u0627 \u0645\u062c\u0627\u0632 \u0628\u0647 \u0627\u0633\u062a\u0641\u0627\u062f\u0647 \u0627\u0632 \u0627\u06cc\u0646 \u0633\u0627\u0645\u0627\u0646\u0647 \u0646\u06cc\u0633\u062a\u06cc\u062f"
+)
 
 # menuItem
 # menuSubItem 1
@@ -454,4 +475,33 @@ as.sunburstDF <- function(DF, value_column = NULL, add_root = FALSE){
 
 data_acc_test3<-# read.csv("inst/app/www/acc_test3.csv")
   openxlsx::read.xlsx("inst/app/www/acc_test3.xlsx")
+
+###########  sources
+
+
+#Note
+#print(app_sys())
+#[1] "C:/Masoud/shinyproject/inst"
+
+
+## run_app.R
+#src = "www/logo_0_fanavaran.png"
+source_global<-list()
+source_global$logo_0_fanavaran= "www/logo_0_fanavaran.png"
+
+
+## app_server.R
+## db=app_sys("app/www/manager.sqlite")
+source_global$manager_sqlite<-"app/www/manager.sqlite"
+
+
+## app_ui.R
+## tags$a(href="https://www.cybersec.ir/", target="_blank",
+source_global$cybersec_ir<-"https://www.cybersec.ir/"
+
+
+## mod_module_1_1.R
+# "inst/app/www/rn_adm_unhcr_20190514/irn_admbnda_adm1_unhcr_20190514.shp"
+source_global$iran_shape_file=
+"inst/app/www/irn_adm_unhcr_20190514/irn_admbnda_adm1_unhcr_20190514.shp"
 

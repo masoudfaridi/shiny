@@ -206,11 +206,21 @@ mod_module_1_1_server <- function(id
   moduleServer( id, function(input, output, session){
     ns <- session$ns
 ################ start module server
-
+    #print('-------------')
+    ##print('-------------')
+    #print('---app_sys---')
+    #print(getwd())
+    #print(dir.exists("inst/app/www/irn_adm_unhcr_20190514"))
+    #print(file.exists("inst/app/www/irn_adm_unhcr_20190514/irn_admbnda_adm1_unhcr_20190514.shp"))
+    #print(list.dirs())
+    #print(app_sys())
 
     get_data<-reactive({
-      iran <-
-        "C:\\Masoud\\statistical learning\\spatial data\\codes\\irn_adm_unhcr_20190514\\irn_admbnda_adm1_unhcr_20190514.shp"
+     # iran <-
+     #   "C:\\Masoud\\statistical learning\\spatial data\\codes\\irn_adm_unhcr_20190514\\irn_admbnda_adm1_unhcr_20190514.shp"
+      iran <- source_global$iran_shape_file
+
+
       #file.choose()
       iran<-st_read(iran)
 
@@ -257,12 +267,12 @@ mod_module_1_1_server <- function(id
       #          , customdata = l_data$ADM1_FA
       #          ) %>%
       #   style(hoverlabel = list(bgcolor = "white"))
-      l_data %>%
+      p<-l_data %>%
 
         plot_ly( split = ~ADM1_FA,  color = ~color_province, name =~ADM1_FA
                  ,source = "plotly_iran"
                  #, customdata = ~ADM1_FA
-                 , customdata = ~ADM1_FA
+                 , key=~ADM1_EN
                  )      %>%
         add_annotations(x = ~lon      ,
                         y = ~lat,
@@ -271,6 +281,10 @@ mod_module_1_1_server <- function(id
                         font = list(size = 17),
                         ax = 20,
                         ay = -20)
+
+      p %>%
+        layout(dragmode = "select") %>%
+        event_register("plotly_selecting")
 
 
 
@@ -297,7 +311,8 @@ mod_module_1_1_server <- function(id
       }else{
         get_data()%>%
               data.frame() %>%
-                 dplyr::filter(id %in%  d)
+                dplyr::select(ADM1_EN) %>%
+                 dplyr::filter(ADM1_EN %in%  d$key)
         #       dplyr::filter(id %in%  d$customdata)
         #       message(paste0("d$customdata:" ,d$customdata))
         }
@@ -320,7 +335,10 @@ mod_module_1_1_server <- function(id
         # get_data()%>%
         # data.frame() %>%
         # dplyr::filter(id %in%  d$customdata)
-        message(paste0("d$customdata:" ,d$customdata))
+        message(paste0("d$customdata:" ,d$key))
+        message(paste0("d:" ,names(d)))
+        message(paste0("d$curveNumber:" ,d$curveNumber))
+        d$key
         }
 
     })
