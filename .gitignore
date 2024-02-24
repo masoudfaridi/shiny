@@ -1,0 +1,7 @@
+.git
+.Rproj.user
+.Rbuildignore
+.Rhistory
+inst/doc
+/doc/
+/Meta/
