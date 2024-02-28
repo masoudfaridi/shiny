@@ -18,7 +18,19 @@ run_app <- function(
 
   #source(app_sys("global.R"))
   #source(system.file("app/www/global.R",package = "MF"))
-  source(app_sys("app/www/global.R"))
+  source(app_sys("app/www/R_CODE/source_address_location.R")) ### This must be first or an error raise
+  source(app_sys("app/www/R_CODE/loading_libraries.R"))
+  source(app_sys("app/www/R_CODE/global.R"))
+  source(app_sys("app/www/R_CODE/source_strings.R"))
+  source(app_sys("app/www/R_CODE/source_decorators.R"))
+  source(app_sys("app/www/R_CODE/source_timeout.R"))
+  source(app_sys("app/www/R_CODE/source_db_splunk.R"))
+  source(app_sys("app/www/R_CODE/source_Python_functions.R"))
+  source(app_sys("app/www/R_CODE/source_db_postgresql.R"))
+  source(app_sys("app/www/R_CODE/source_shinycssloaders.R"))
+  source(app_sys("app/www/R_CODE/source_R_functions.R"))
+  source(app_sys("app/www/R_CODE/source_loading_excel_files.R"))
+
 
   #shinymanager::set_labels(
   #  language = "en",

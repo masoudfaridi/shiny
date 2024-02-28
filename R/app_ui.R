@@ -105,7 +105,8 @@ app_ui <- function(request) {
                        #htmltools::
                        tags$img(height = "45px", alt="cybersec", src=
                                   #app_sys(
-                                  "www/icon_1_fanavaran_2.png"
+                                  source_global$icon_1_fanavaran_2
+                                  #"www/icon_1_fanavaran_2.png"
                                 #)
                                 #"D:/Projects/golembase/inst/app/www/icon_1_fanavaran_2.png"
                                 #UI_global_menu_src1
@@ -120,7 +121,9 @@ app_ui <- function(request) {
                           ", #reza: change style
                        #                  htmltools::
                        tags$img(height = "45px", alt="cybersec", src=  #app_sys(
-                                  "www/icon_2_police.png")
+                                  source_global$icon_2_police.png
+                                #"www/icon_2_police.png"
+                                )
                        #)
                 )
         )
