@@ -1,4 +1,4 @@
-#' module_1_2 UI Function
+#' module_10_2 UI Function
 #' @description A shiny Module.
 #' @param id,input,output,session Internal parameters for {shiny}.
 #' @noRd
@@ -13,7 +13,7 @@
 #' @import shinycssloaders
 #' @import shinybusy
 
-mod_module_1_2_ui <- function(id){
+mod_module_10_2_ui <- function(id){
   ns <- NS(id)
   tagList(
 ##########################################################################################
@@ -197,10 +197,10 @@ fluidRow(
 ##########################################################################################
 }
 
-#' module_1_2 Server Functions
+#' module_10_2 Server Functions
 #'
 #' @noRd
-mod_module_1_2_server <- function(id
+mod_module_10_2_server <- function(id
                                   ,notificationModule
                                   ,messageModule
                                   ,taskItemModule
@@ -211,7 +211,7 @@ mod_module_1_2_server <- function(id
 ################ start module server
 
    get_data<-reactive({
-     splunk_r<-splunk_get_result_inputlookup(search_command=splunk_ls$index_acc_test4,splunk_ls=splunk_ls)
+     #splunk_r<-splunk_get_result_inputlookup(search_command=splunk_ls$index_acc_test4,splunk_ls=splunk_ls)
 
      #message("search_command:")
      #message(search_command)
@@ -422,7 +422,7 @@ mod_module_1_2_server <- function(id
 }
 
 ## To be copied in the UI
-# mod_module_1_2_ui("module_1_2")
+# mod_module_10_2_ui("module_10_2")
 
 ## To be copied in the server
-# mod_module_1_2_server("module_1_2")
+# mod_module_10_2_server("module_10_2")

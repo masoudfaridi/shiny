@@ -169,6 +169,15 @@ app_ui <- function(request) {
 
 
           )
+          ,
+          menuItem(ui_global_variable$mI_10_0$name ,icon = icon("search"),
+
+                   menuSubItem(ui_global_variable$mI_10_1$name, tabName = ui_global_variable$mI_10_1$ID, icon = shiny::icon("fa-sharp fa-solid fa-file-csv"))
+                   ,menuSubItem(ui_global_variable$mI_10_2$name, tabName = ui_global_variable$mI_10_2$ID, icon = icon("fa-sharp fa-solid fa-file-csv"))
+                   #,menuSubItem(ui_global_variable$mI_2_3$name, tabName = ui_global_variable$mI_2_3$ID, icon = icon("fa-sharp fa-solid fa-file-csv"))
+
+
+          )
 
 
 
@@ -210,9 +219,9 @@ app_ui <- function(request) {
 
 
           ###  tab 2
-          #,tabItem(tabName = ui_global_variable$mI_2_1$ID, mod_module_2_1_ui("module_2_1"))
+          ,tabItem(tabName = ui_global_variable$mI_10_1$ID, mod_module_10_1_ui("module_10_1"))
 
-          #,tabItem(tabName = ui_global_variable$mI_2_2$ID, mod_module_2_2_ui("module_2_2"))
+          ,tabItem(tabName = ui_global_variable$mI_10_2$ID, mod_module_10_2_ui("module_10_2"))
           #,tabItem(tabName = ui_global_variable$mI_2_3$ID, mod_module_2_3_ui("module_2_3"))
           #,tabItem(tabName = ui_global_variable$mI_3_1$ID, mod_module_3_1_ui("module_3_1"))
           #,tabItem(tabName = ui_global_variable$mI_3_2$ID, mod_module_3_2_ui("module_3_2"))

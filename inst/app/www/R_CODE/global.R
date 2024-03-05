@@ -103,9 +103,25 @@ ui_global_variable$mI_4_1<-
        ,ID="mI_4_2",name_en="forecast_monthly")
 
 
+#################################
+##############  10   ############
+#################################
+###################################################################
+ui_global_variable$mI_10_0<-
+  list(name="\u067e\u06cc\u0634 \u0628\u06cc\u0646\u06cc \u0645\u062d\u0648\u0631"
+       ,ID="mI_3_0",name_en="connect to postgreSQL")
 
+ui_global_variable$mI_10_1<-
+  list(name="\u067e\u06cc\u0634 \u0628\u06cc\u0646\u06cc \u0645\u0627\u0647\u06cc\u0627\u0646\u0647 \u0627\u0644\u06af\u0648\u0631\u06cc\u062a\u0645 \u0627\u0648\u0644"
 
+       #  "\u067e\u06cc\u0634 \u0628\u06cc\u0646\u06cc \u0645\u0627\u0647\u06cc\u0627\u0646\u0647"
+       ,ID="mI_10_1",name_en="forecast_monthly")
 
+ui_global_variable$mI_10_2<-
+  list(name="\u067e\u06cc\u0634 \u0628\u06cc\u0646\u06cc \u0645\u0627\u0647\u06cc\u0627\u0646\u0647 \u0627\u0644\u06af\u0648\u0631\u06cc\u062a\u0645 \u0627\u0648\u0644"
+
+       #  "\u067e\u06cc\u0634 \u0628\u06cc\u0646\u06cc \u0645\u0627\u0647\u06cc\u0627\u0646\u0647"
+       ,ID="mI_10_2",name_en="forecast_monthly")
 
 
 

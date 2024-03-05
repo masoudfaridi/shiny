@@ -48,7 +48,7 @@ app_server <- function(input, output, session) {
   ###################
   ###################
   ###################
-  mod_module_1_1_server("module_1_1"
+  mod_module_10_1_server("module_10_1"
                         ,notificationModule
                         ,messageModule
                         ,taskItemModule
@@ -57,7 +57,7 @@ app_server <- function(input, output, session) {
 
   ###################
   ###################
-  mod_module_1_2_server("module_1_2"
+  mod_module_10_2_server("module_10_2"
                        ,notificationModule
                         ,messageModule
                         ,taskItemModule
