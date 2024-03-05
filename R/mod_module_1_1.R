@@ -66,7 +66,7 @@ shinydashboardPlusbox_MF(
         "marker size(plot):",
         min = 10000,
         max = 20000,
-        value = 6,step =0.25
+        value = 10000,step =0.25
       )
 
 

@@ -14,15 +14,24 @@ Imports:
     dplyr,
     DT,
     golem (>= 0.3.4),
+    httr,
+    jalcal,
     odbc,
+    openxlsx,
     plotly,
+    pryr,
+    reticulate,
     RPostgres,
+    RSQLite,
     shiny (>= 1.7.2),
     shinybusy,
     shinycssloaders,
     shinydashboard,
     shinydashboardPlus,
-    shinymanager
+    shinymanager,
+    stringr,
+    tidyr,
+    xts
 Suggests: 
     knitr,
     rmarkdown

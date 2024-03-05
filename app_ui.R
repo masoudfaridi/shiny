@@ -71,12 +71,11 @@ app_ui <- function(request) {
         })
         "
     )),
-    shinydashboardPlus::dashboardPage(
+    shinydashboard::dashboardPage(
 
       header=
         ########################################################
       ########################################################
-      #shinydashboardPlus::dashboardHeader(
       shinydashboard::dashboardHeader(
         #title =
         title = h1(
@@ -122,7 +121,7 @@ app_ui <- function(request) {
                           ", #reza: change style
                        #                  htmltools::
                        tags$img(height = "45px", alt="cybersec", src=  #app_sys(
-                                  source_global$icon_2_police
+                                  source_global$icon_2_police.png
                                 #"www/icon_2_police.png"
                                 )
                        #)
@@ -144,26 +143,24 @@ app_ui <- function(request) {
       sidebar=
         ########################################################
       ########################################################
-      #shinydashboardPlus::dashboardSidebar(
       shinydashboard::dashboardSidebar(
-
         #id='dashboardSidebar',
         #collapsed = FALSE,
-        div(htmlOutput("welcome"), style = "padding: 20px"),
+        # div(htmlOutput("welcome"), style = "padding: 20px"),
         sidebarMenu(
           # menuItem database 1
           menuItem(ui_global_variable$mI_1_0$name ,icon = icon("search"),
 
-                   menuSubItem(ui_global_variable$mI_1_1$name, tabName = ui_global_variable$mI_1_1$ID, icon = shiny::icon("fa-sharp fa-solid fa-file-csv"))
-                   ,menuSubItem(ui_global_variable$mI_1_2$name, tabName = ui_global_variable$mI_1_2$ID, icon = shiny::icon("fa-sharp fa-solid fa-file-csv"))
-                   ,menuSubItem(ui_global_variable$mI_1_3$name, tabName = ui_global_variable$mI_1_3$ID, icon = shiny::icon("fa-sharp fa-solid fa-file-csv"))
+                   menuSubItem(ui_global_variable$mI_1_1$name, tabName = ui_global_variable$mI_1_1$ID, icon = icon("fa-sharp fa-solid fa-file-csv"))
+                   ,menuSubItem(ui_global_variable$mI_1_2$name, tabName = ui_global_variable$mI_1_2$ID, icon = icon("fa-sharp fa-solid fa-file-csv"))
+                   ,menuSubItem(ui_global_variable$mI_1_3$name, tabName = ui_global_variable$mI_1_3$ID, icon = icon("fa-sharp fa-solid fa-file-csv"))
 
 
           )
           ,
           menuItem(ui_global_variable$mI_2_0$name ,icon = icon("search"),
 
-                   menuSubItem(ui_global_variable$mI_2_1$name, tabName = ui_global_variable$mI_2_1$ID, icon = shiny::icon("fa-sharp fa-solid fa-file-csv"))
+                   menuSubItem(ui_global_variable$mI_2_1$name, tabName = ui_global_variable$mI_2_1$ID, icon = icon("fa-sharp fa-solid fa-file-csv"))
                    #,menuSubItem(ui_global_variable$mI_2_2$name, tabName = ui_global_variable$mI_2_2$ID, icon = icon("fa-sharp fa-solid fa-file-csv"))
                    #,menuSubItem(ui_global_variable$mI_2_3$name, tabName = ui_global_variable$mI_2_3$ID, icon = icon("fa-sharp fa-solid fa-file-csv"))
 
@@ -187,14 +184,10 @@ app_ui <- function(request) {
       body=
         ########################################################
       ########################################################
-
-
-
       shinydashboard::dashboardBody(
         tags$head(
-        tags$link(rel = "stylesheet", type = "text/css", href =source_global$css_custom_css #"www/custom.css"
-
-                    ),
+          tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "www/c_AdminLTE.min.css")),
+          tags$link(rel = "stylesheet", type = "text/css", href = "www/custom.css"),
           tags$script(inactivity)
 
         ),

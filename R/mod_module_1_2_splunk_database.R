@@ -211,7 +211,7 @@ mod_module_1_2_server <- function(id
 ################ start module server
 
    get_data<-reactive({
-     #splunk_r<-splunk_get_result_inputlookup(search_command=splunk_ls$index_acc_test4,splunk_ls=splunk_ls)
+     splunk_r<-splunk_get_result_inputlookup(search_command=splunk_ls$index_acc_test4,splunk_ls=splunk_ls)
 
      #message("search_command:")
      #message(search_command)

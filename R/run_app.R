@@ -11,7 +11,7 @@
 run_app <- function(
     onStart = NULL,
     options = list(),
-    enableBookmarking = NULL,
+    enableBookmarking = source_nonstring$enableBookmarking,
     uiPattern = "/",
     ...
 ) {
@@ -19,6 +19,7 @@ run_app <- function(
   #source(app_sys("global.R"))
   #source(system.file("app/www/global.R",package = "MF"))
   source(app_sys("app/www/R_CODE/source_address_location.R")) ### This must be first or an error raise
+  source(app_sys("app/www/R_CODE/source_nonstring.R"))
   source(app_sys("app/www/R_CODE/loading_libraries.R"))
   source(app_sys("app/www/R_CODE/global.R"))
   source(app_sys("app/www/R_CODE/source_strings.R"))

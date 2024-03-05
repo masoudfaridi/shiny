@@ -36,6 +36,9 @@ app_server <- function(input, output, session) {
     session$close()
   })
 
+
+
+
   #messageModule = callModule(mod_msg_message_dropdownMenu_server, 'messageUI')
   notificationModule = callModule(notificationServer, 'notificationUI')
   messageModule = callModule(messageServer, 'messageUI')
@@ -65,4 +68,16 @@ app_server <- function(input, output, session) {
   ###################
 
 
+
+  ###################
+  ### Bookmarking ###
+  ###################
+  # observe({
+  #   reactiveValuesToList(input)
+  #   session$doBookmark()
+  # })
+  # onBookmarked(updateQueryString)
+  ###################
+  ### Bookmarking ###
+  ###################
 }
