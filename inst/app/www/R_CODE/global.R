@@ -28,7 +28,7 @@ set_labels(language = "en",
 # menuSubItem 1
 ui_global_variable<-list()
 ui_global_variable$mI_1_0<-list(name=
-                                  "GIS"
+                                  "\u062a\u062d\u0644\u06cc\u0644 \u0627\u06a9\u062a\u0634\u0627\u0641\u06cc \u062f\u0627\u062f\u0647\u200c\u0647\u0627"
                                   ,ID=NULL,name_en="EDA")
 ui_global_variable$mI_1_0_2<-list(name="\u062f\u06cc\u062a\u0627\u0628\u06cc\u0633",ID=NULL,name_en="Database")
 ui_global_variable$mI_1_1<-

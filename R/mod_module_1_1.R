@@ -18,6 +18,7 @@
 #' @import stringr
 #' @import colorspace
 #' @import sf
+#' @import purrr
 
 
 
@@ -28,6 +29,12 @@ mod_module_1_1_ui <- function(id){
 ##########################################################################################
 ################################  start tagList  ###########################################
 ##########################################################################################
+
+
+
+###############################################################
+############### START shinydashboardPlusbox_MF ################
+###############################################################
 shinydashboardPlusbox_MF(
   #shinydashboardPlus::box(
   title = h5('\u0639\u0646\u0648\u0627\u0646'
@@ -39,7 +46,11 @@ shinydashboardPlusbox_MF(
   height = "2000px",
   solidHeader = FALSE,
   collapsible = TRUE
-  ,sidebar = shinydashboardPlus::boxSidebar(
+  ,
+  ##################################################
+  # start sidebar = shinydashboardPlus::boxSidebar #
+  ##################################################
+  sidebar = shinydashboardPlus::boxSidebar(
     id = ns("settings_plt1"),
     width = 25
     ,tagList(
@@ -64,124 +75,55 @@ shinydashboardPlusbox_MF(
       sliderInput(
         ns("settings_plot_gis_height"),
         "marker size(plot):",
-        min = 10000,
-        max = 20000,
-        value = 10000,step =0.25
+        min = 100,
+        max = 200,
+        value = 100,step =10
       )
 
 
     )
   )
-
+  ##################################################
+   # end sidebar = shinydashboardPlus::boxSidebar #
+  ##################################################
   ,
   hr()
   ,
-  fluidRow(
-    column(width = 12,
-           div(
-             class = "plotly-full-screen",
-           plotlyOutput(ns("plotly_iran"))%>% shinycssloaders::withSpinner()
-          # plotOutput(ns("plot_iran"))%>% shinycssloaders::withSpinner()
-           )
+  fluidRow(offset = 0, style='padding:10px;',
 
 
-    )
-  )
-
-)
-,
-hr()
-,
-shinydashboardPlusbox_MF(
-  #shinydashboardPlus::box(
-  title = h5('\u0639\u0646\u0648\u0627\u0646'
-             ,class ="h1t2"
-  ),
-  id = ns("settings_dt"),
-  closable = TRUE,
-  width = 12,
-  height = "2000px",
-  solidHeader = FALSE,
-  collapsible = TRUE
-  ,sidebar = shinydashboardPlus::boxSidebar(
-    id = ns("settings_dt"),
-    width = 25
-    ,tagList(
-
-
+    column(width = 2,#offset = 1, style='padding:0px;',
+        uiOutput(ns('uioutput_datasets_select'))
+      ,
 
       sliderInput(
-        ns("settings_font_size_dt"),
-        "marker size(plotly):",
-        min = 1,
-        max = 50,
-        value = 15,step =1
+        ns("bins"), label = "Number of bins:",
+        min = 1, value = 30, max = 50
       )
-
-
-
     )
-  )
 
-  ,
-  hr()
-  ,
-  fluidRow(
-    column(width = 12,
-
-             DT::dataTableOutput(ns("dt_selected")) %>% shinycssloaders::withSpinner()
-
-
-
-    )
   )
 
 )
-,
-fluidRow(
-  column(width = 6,
 
-         verbatimTextOutput(ns("hover"))
+###############################################################
+############### END shinydashboardPlusbox_MF ##################
+###############################################################
 
+,hr()
 
-  )
-)
-,fluidRow(
-  column(width = 6,
+###############################################################
+############### START shinydashboardPlusbox_MF ################
+###############################################################
 
-         verbatimTextOutput(ns("click"))
-
-
-  )
-  # ,
-  # column(width = 2,
-  #
-  #        verbatimTextOutput(ns("brushing"))
-  #
-  #
-  # ),
-  # column(width = 2,
-  #
-  #        verbatimTextOutput(ns("selecting"))
-  #
-  #
-  # ),
-  # column(width = 2,
-  #
-  #        verbatimTextOutput(ns("selected"))
-  #
-  #
-  # )
-)
+###############################################################
+###############  END shinydashboardPlusbox_MF #################
+###############################################################
 
 
 
-#verbatimTextOutput("hover"),
-#verbatimTextOutput("click"),
-#verbatimTextOutput("brushing"),
-#verbatimTextOutput("selecting"),
-#verbatimTextOutput("brushed"),
-#verbatimTextOutput("selected")
+
+
 
 
 ##########################################################################################
@@ -205,7 +147,13 @@ mod_module_1_1_server <- function(id
                                   splunk_ls){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
-################ start module server
+
+
+#########################################################
+#########################################################
+################   start module server   ################
+#########################################################
+#########################################################
     #print('-------------')
     ##print('-------------')
     #print('---app_sys---')
@@ -215,12 +163,28 @@ mod_module_1_1_server <- function(id
     #print(list.dirs())
     #print(app_sys())
 
+    get_datasets_name<-reactive({
+      purrr::keep(ls('package:datasets'),~is.data.frame(get(.x,'package:datasets')))
+    })
+
+    output$uioutput_datasets_select<-renderUI({
+
+      selectInput(ns("selectInput_datasets_select"),
+                  "\u0645\u062c\u0645\u0648\u0639\u0647 \u062f\u0627\u062f\u0647",
+                  choices = get_datasets_name(),
+                  selected = get_datasets_name()[1]#NULL
+                  )
+
+    })
 
 
 
+#########################################################
+#########################################################
+################   end module server   ##################
+#########################################################
+#########################################################
 
-
-################ end module server
   })
 }
 

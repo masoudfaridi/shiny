@@ -48,6 +48,15 @@ app_server <- function(input, output, session) {
   ###################
   ###################
   ###################
+  mod_module_1_1_server("module_1_1"
+                         ,notificationModule
+                         ,messageModule
+                         ,taskItemModule
+                         ,dsn_list,splunk_ls
+  )
+
+  ###################
+  ###################
   mod_module_10_1_server("module_10_1"
                         ,notificationModule
                         ,messageModule
