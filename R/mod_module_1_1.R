@@ -96,10 +96,30 @@ shinydashboardPlusbox_MF(
         uiOutput(ns('uioutput_datasets_select'))
       ,
 
-      sliderInput(
-        ns("bins"), label = "Number of bins:",
-        min = 1, value = 30, max = 50
-      )
+      uiOutput(ns('uioutput_filters'))
+
+
+
+    ),
+    column(width = 2,#offset = 1, style='padding:0px;',
+
+
+           uiOutput(ns('uioutput_var_x')),
+           uiOutput(ns('uioutput_var_y'))
+
+
+
+    )
+
+
+    ,
+    column(width = 8,#offset = 1, style='padding:0px;',
+
+
+           DTOutput(ns("dtoutput_data"))
+
+
+
     )
 
   )
@@ -163,20 +183,99 @@ mod_module_1_1_server <- function(id
     #print(list.dirs())
     #print(app_sys())
 
+    #########################################################
     get_datasets_name<-reactive({
       purrr::keep(ls('package:datasets'),~is.data.frame(get(.x,'package:datasets')))
     })
-
+    #########################################################
+    get_data<-eventReactive(input$selectInput_datasets_select,{
+      get(input$selectInput_datasets_select,"package:datasets")
+    })
+    #########################################################
+    get_data_head<-eventReactive(input$selectInput_datasets_select,{
+      get(input$selectInput_datasets_select,"package:datasets") %>% head()
+    })
+    #########################################################
     output$uioutput_datasets_select<-renderUI({
 
       selectInput(ns("selectInput_datasets_select"),
                   "\u0645\u062c\u0645\u0648\u0639\u0647 \u062f\u0627\u062f\u0647",
-                  choices = get_datasets_name(),
-                  selected = get_datasets_name()[1]#NULL
+                  choices = get_datasets_name()%||% NULL,
+                  selected = get_datasets_name()[1]%||% NULL
                   )
 
     })
+    #########################################################
+    output$uioutput_var_x<-renderUI({
 
+      selectInput(ns("var_x"),
+                  "\u0645\u062a\u063a\u06cc\u0631 \u0627\u0641\u0642\u06cc",
+                  choices =names(get_data_head()) ,
+                  selected = names(get_data_head())[1] %||% NULL
+      )
+
+    })
+    #########################################################
+    output$uioutput_var_y<-renderUI({
+
+      selectInput(ns("var_y"),
+                  "\u0645\u062a\u063a\u06cc\u0631 \u0627\u0641\u0642\u06cc",
+                  choices =names(get_data_head()) ,
+                  selected = names(get_data_head())[2] %||% NULL
+      )
+
+    })
+    #########################################################
+    output$uioutput_filters<-renderUI({
+      func_slider_select<-function(x){
+        if(is.numeric(get_data()[[x]])){
+          sliderInput( ns(x),  x ,
+                       min =min(get_data()[[x]],na.rm = TRUE
+                                ) , max=max(get_data()[[x]],na.rm = TRUE),
+                       value = c(min(get_data()[[x]],na.rm = TRUE),max(get_data()[[x]],na.rm = TRUE)))
+
+        }else if(is.character(get_data()[[x]]) || is.factor(get_data()[[x]])){
+          selectInput(ns(x),  x ,
+                      choices =unique(get_data()[[x]]) ,
+                      selected = unique(get_data()[[x]]) %||% NULL,multiple = TRUE
+          )
+        }else{
+          NULL
+        }
+      }
+
+
+      map(names(get_data_head()),~func_slider_select(.x))
+
+    })
+    #########################################################
+
+    #########################################################
+    output$dtoutput_data<-renderDT({
+
+      data_f11<-get_data()
+      data_f11<- data_f11 %>% mutate(across(!where(is.numeric), as.factor))
+      datatable(
+        data_f11
+        ,
+        filter = 'top',
+        extensions = c('Select', 'Buttons'),
+        selection = 'none',
+        options = list(select = list(style = 'os',
+                                     items = 'row'),
+                       dom = 'Bfrtip',
+                       pageLength = 5,
+                       autoWidth = TRUE,
+                       buttons = list('copy' ,
+                                      list(extend = 'collection',
+                                           buttons = c('csv', 'excel'),
+                                           text = 'Download')))
+
+      )
+
+    },    server = FALSE
+    )
+    #########################################################
 
 
 #########################################################
