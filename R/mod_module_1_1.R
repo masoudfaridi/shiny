@@ -94,29 +94,20 @@ shinydashboardPlusbox_MF(
 
     column(width = 2,#offset = 1, style='padding:0px;',
         uiOutput(ns('uioutput_datasets_select'))
-      ,
-
-      uiOutput(ns('uioutput_filters'))
-
-
-
-    ),
-    column(width = 2,#offset = 1, style='padding:0px;',
-
-
-           uiOutput(ns('uioutput_var_x')),
-           uiOutput(ns('uioutput_var_y'))
+        ,
+        uiOutput(ns('uioutput_var_x')),
+        uiOutput(ns('uioutput_var_y'))
 
 
 
     )
 
-
     ,
-    column(width = 8,#offset = 1, style='padding:0px;',
+    column(width = 10,#offset = 1, style='padding:0px;',
 
 
-           DTOutput(ns("dtoutput_data"))
+           DTOutput(ns("dtoutput_data")),
+           plotlyOutput(ns("plotlyoutput_data"))
 
 
 
@@ -188,13 +179,21 @@ mod_module_1_1_server <- function(id
       purrr::keep(ls('package:datasets'),~is.data.frame(get(.x,'package:datasets')))
     })
     #########################################################
+
+
+    #########################################################
     get_data<-eventReactive(input$selectInput_datasets_select,{
       get(input$selectInput_datasets_select,"package:datasets")
     })
     #########################################################
+
+
+    #########################################################
     get_data_head<-eventReactive(input$selectInput_datasets_select,{
       get(input$selectInput_datasets_select,"package:datasets") %>% head()
     })
+    #########################################################
+
     #########################################################
     output$uioutput_datasets_select<-renderUI({
 
@@ -206,6 +205,10 @@ mod_module_1_1_server <- function(id
 
     })
     #########################################################
+
+
+
+    #########################################################
     output$uioutput_var_x<-renderUI({
 
       selectInput(ns("var_x"),
@@ -215,6 +218,9 @@ mod_module_1_1_server <- function(id
       )
 
     })
+    #########################################################
+
+
     #########################################################
     output$uioutput_var_y<-renderUI({
 
@@ -226,29 +232,17 @@ mod_module_1_1_server <- function(id
 
     })
     #########################################################
-    output$uioutput_filters<-renderUI({
-      func_slider_select<-function(x){
-        if(is.numeric(get_data()[[x]])){
-          sliderInput( ns(x),  x ,
-                       min =min(get_data()[[x]],na.rm = TRUE
-                                ) , max=max(get_data()[[x]],na.rm = TRUE),
-                       value = c(min(get_data()[[x]],na.rm = TRUE),max(get_data()[[x]],na.rm = TRUE)))
-
-        }else if(is.character(get_data()[[x]]) || is.factor(get_data()[[x]])){
-          selectInput(ns(x),  x ,
-                      choices =unique(get_data()[[x]]) ,
-                      selected = unique(get_data()[[x]]) %||% NULL,multiple = TRUE
-          )
-        }else{
-          NULL
-        }
-      }
 
 
-      map(names(get_data_head()),~func_slider_select(.x))
+    #########################################################
+    output$plotlyoutput_data<-renderPlotly({
+
+
 
     })
     #########################################################
+
+
 
     #########################################################
     output$dtoutput_data<-renderDT({
