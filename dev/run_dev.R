@@ -22,9 +22,7 @@ golem::document_and_reload()
 
 # Run the application
 
-run_app(
-  options = list(port=4909)
-)
+run_app(options = list(port=4909))
 
 
 
